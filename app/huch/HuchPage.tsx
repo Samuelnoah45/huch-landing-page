@@ -16,8 +16,18 @@ import HuchCTA        from "./components/HuchCTA";
 import HuchFooter     from "./components/HuchFooter";
 
 export default function HuchPage({ theme: initialTheme }: { theme: Theme }) {
-  const [theme, setTheme] = useState<Theme>(initialTheme);
-  const [mode,  setMode]  = useState<Mode>("dark");
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return initialTheme;
+    return (localStorage.getItem("huch-theme") as Theme) ?? initialTheme;
+  });
+  const [mode, setMode] = useState<Mode>(() => {
+    if (typeof window === "undefined") return "dark";
+    return (localStorage.getItem("huch-mode") as Mode) ?? "dark";
+  });
+
+  // Persist preferences
+  useEffect(() => { localStorage.setItem("huch-theme", theme); }, [theme]);
+  useEffect(() => { localStorage.setItem("huch-mode",  mode);  }, [mode]);
 
   // Override app body background while on this page
   useEffect(() => {

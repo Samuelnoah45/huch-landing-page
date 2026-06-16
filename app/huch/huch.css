@@ -369,6 +369,12 @@
   .hp .foot-grid { grid-template-columns: 1fr 1fr; }
   .hp .nav-links { display: none; }
   .hp .shield-vis { max-width: 360px; margin: 0 auto; }
+  /* Tighten nav so items don't overflow at mid-size viewports */
+  .hp .nav .wrap { gap: 14px; }
+  .hp .nav-cta .btn { display: none; }
+}
+@media (max-width: 640px) {
+  .hp .theme-toggle { display: none; }
 }
 @media (max-width: 560px) {
   .hp { font-size: 16px; }
@@ -377,3 +383,91 @@
   .hp .hero-actions .btn { flex: 1; }
   .hp .foot-bottom { flex-direction: column; align-items: flex-start; }
 }
+
+/* ============================================================ MODE TOGGLE BUTTON */
+.hp .mode-toggle {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex: none;
+  color: var(--text-3);
+  border: 1px solid var(--line-2);
+  background: var(--surface);
+  transition: color .2s, background .2s, border-color .2s;
+}
+.hp .mode-toggle:hover { color: var(--text); background: var(--surface-2); }
+
+/* ============================================================ LIGHT MODE */
+.hp[data-mode="light"] {
+  --bg:       #F7F9FC;
+  --bg-1:     #EFF2F7;
+  --surface:  #FFFFFF;
+  --surface-2:#F3F5F9;
+  --surface-3:#E8EDF4;
+  --line:     rgba(0,0,0,.08);
+  --line-2:   rgba(0,0,0,.14);
+  --text:     #0D1117;
+  --text-2:   #3E4A5A;
+  --text-3:   #6B7A8D;
+}
+
+/* Orbs are too strong on white */
+.hp[data-mode="light"] .hero-glow .orb { opacity: .2; }
+
+/* Nav glass → light */
+.hp[data-mode="light"] .nav.scrolled {
+  background: rgba(247,249,252,.88);
+}
+
+/* Nav links hover */
+.hp[data-mode="light"] .nav-links a:hover {
+  background: rgba(0,0,0,.05);
+}
+
+/* Theme toggle */
+.hp[data-mode="light"] .theme-toggle button.active {
+  box-shadow: 0 1px 4px rgba(0,0,0,.15);
+}
+
+/* Ghost button → dark tint */
+.hp[data-mode="light"] .btn-ghost {
+  background: rgba(0,0,0,.04);
+}
+.hp[data-mode="light"] .btn-ghost:hover {
+  background: rgba(0,0,0,.08);
+}
+
+/* Phone mockup */
+.hp[data-mode="light"] .phone {
+  background: linear-gradient(160deg, #dde3ef, #cdd5e5);
+  box-shadow: 0 40px 120px -40px rgba(0,0,0,.2), var(--glow-brand);
+}
+.hp[data-mode="light"] .phone-screen {
+  background: #edf1f9;
+}
+.hp[data-mode="light"] .phone-notch {
+  background: rgba(0,0,0,.14);
+}
+
+/* Floating chips */
+.hp[data-mode="light"] .float-chip {
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 8px 24px -8px rgba(0,0,0,.12);
+  color: var(--text);
+}
+.hp[data-mode="light"] .float-chip .sub { color: var(--text-3); }
+
+/* Settle bar empty state */
+.hp[data-mode="light"] .settle-vis .bar.old {
+  background: rgba(0,0,0,.07);
+}
+
+/* Shield badges */
+.hp[data-mode="light"] .shield-badge {
+  background: rgba(255,255,255,.95);
+}
+
+/* Keep code block dark even in light mode (standard for code editors) */
+.hp[data-mode="light"] .code-bar {
+  background: #141a24;
+  border-bottom-color: rgba(255,255,255,.08);
+}
+.hp[data-mode="light"] .code-bar .fname { color: rgba(255,255,255,.4); }
